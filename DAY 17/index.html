@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Most Frequent Word Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="task.js"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-xl rounded-2xl p-8 max-w-lg w-full">
+      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">
+         Most Frequent Word Finder
+      </h2>
+
+      <textarea
+        id="paragraph"
+        rows="6"
+        class="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Type or paste your paragraph here..."
+      ></textarea>
+
+      <button
+        onclick="findMostFrequentWord()"
+        class="mt-5 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl transition-all"
+      >
+        Find Most Frequent Word
+      </button>
+
+      <div
+        id="result"
+        class="mt-6 text-center text-lg font-medium text-gray-700"
+      ></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
