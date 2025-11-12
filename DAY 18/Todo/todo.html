@@ -34,6 +34,7 @@
       type="text" 
       id="searchinput" 
       placeholder="🔍 Search tasks..." 
+      onkeyup="searchFilter()"
       class="w-full mb-4 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
     />
 
@@ -43,6 +44,8 @@
       class="divide-y divide-gray-200 text-gray-800"
     ></ul>
   </div>
+  <hr>
+  <button id="btn" class=" mt-16 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Counter</button>
 
 </body>
 </html>

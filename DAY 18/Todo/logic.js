@@ -18,3 +18,25 @@ function addTask() {
   tasklist.appendChild(li);
   li.appendChild(deleteElement);
 }
+function searchFilter() {
+  const searchValue = document.getElementById("searchinput").value.toLowerCase();
+  const tasks = document.querySelectorAll("#tasklist li");
+console.log(tasks);
+  tasks.forEach(task => {
+    const text = task.firstChild.textContent.toLowerCase();
+    if (text.includes(searchValue)) {
+      task.style.display = "";
+    } else {
+      task.style.display = "none";
+    }
+  });
+}
+let count = 0;
+function counter() {
+      const btn = document.getElementById("btn");
+      btn.addEventListener("click", () => {
+        count++;
+        console.log(count);
+      });
+    }
+window.onload = counter
