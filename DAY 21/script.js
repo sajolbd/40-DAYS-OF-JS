@@ -28,7 +28,10 @@ const quizData = [
 
 let questions = [...quizData].sort(()=> Math.random() - 0.5);
 let currentQuestion = 0;
-console.log(questions);
+let score = 0;
+let timer;
+let timeleft=15;
+// console.log(questions);
 
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
@@ -37,7 +40,17 @@ const timerEl = document.getElementById("timer");
 const resultEl = document.getElementById("result");
 
 function loadQuestion() {
+
+// timer
+clearInterval(timer);
+timeleft = 15;
+// updateTimer()  
+timer = setInterval(countdown,1000);
+
+
+
   const q = questions[currentQuestion];
+  // console.log(q);
   questionEl.textContent = `Q${currentQuestion + 1}. ${q.question}`;
   optionsEl.innerHTML = "";
 
@@ -46,7 +59,62 @@ function loadQuestion() {
       btn.classList.add("option-btn");
       btn.textContent = option;
       btn.addEventListener("click", () => selectAnswer(index, true))
-      optionsEl.appendChild(btn);
+      optionsEl.appendChild(btn);  
   });
+  nextBtn.style.display = 'none'
 }
+
+function selectAnswer(index){
+  const q = questions[currentQuestion];
+  const buttons = document.querySelectorAll('.option-btn')
+  buttons.forEach(btn => btn.disabled = true)
+  if(index === q.correct){  
+    buttons[index].classList.add('correct');
+    score=score+10;
+  }
+  else{
+    buttons[index].classList.add('wrong')
+    buttons[q.correct].classList.add('correct')
+  }
+  nextBtn.style.display = 'inline-block'
+}
+
+nextBtn.addEventListener('click',function(){
+  currentQuestion++;
+  if(currentQuestion < questions.length)loadQuestion()
+    else{
+      // result
+      showResult();
+    }
+})
+function showResult(){
+  nextBtn.style.display = 'none'
+  const highScore = localStorage.getItem('quizHighScore' || 0);
+  const isNew = score > highScore;
+  if(isNew){
+    localStorage.setItem('quizHighScore',score)
+  }
+  resultEl.innerHTML= `
+      <p>Quiz Completed</p>
+      <p>Your quiz Score : ${score}</p>
+      <p>Highest Score: ${Math.max(score,highScore)}</p>
+      <button onclick='location.reload()' class="option-btn">Restart</button>
+    `
+    
+}
+function countdown(){
+  timeleft--;
+  // updateTimer()
+  if(timer === 0){
+    clearInterval(timer);
+    selectAnswer(questions[currentQuestion]?.correct)
+
+  }
+}
+
+function updateTimer(){
+  timerEl.textContent = `🕑 ${timeleft}`
+}
+
+
 loadQuestion();
